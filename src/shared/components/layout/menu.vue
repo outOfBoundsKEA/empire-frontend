@@ -1,5 +1,5 @@
 <template>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
         <div class="container">
         <router-link :to="{name: 'Index'}" class="navbar-brand">Empire</router-link>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -7,18 +7,41 @@
         </button>
 
         <div class="collapse navbar-collapse">
-            <ul class="navbar-nav justify-content-end">
-                <li class="nav-item active">
-                    <router-link :to="{name: 'Movies'}" class="nav-link">movies</router-link>
+            <ul class="navbar-nav justify-content-end ml-auto">
+                <li class="nav-item">
+                    <router-link :to="{name: 'Movies'}" class="nav-link">
+                        <i class="fa fa-film" aria-hidden="true"></i> movies</router-link>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">cinema</a>
+                    <router-link :to="{name: 'Cinema'}" class="nav-link">
+                        <i class="fa fa-video-camera" aria-hidden="true"></i> cinema
+                    </router-link>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">booking</a>
+                    <router-link :to="{name: 'Booking'}" class="nav-link">
+                        <i class="fa fa-ticket" aria-hidden="true"></i> booking
+                    </router-link>
                 </li>
             </ul>
         </div>
         </div>
     </nav>
 </template>
+<style lang="scss">
+    .router-link-active {
+        color: white !important;
+    }
+    .navbar-brand {
+        font-family: 'Righteous', cursive;
+    }
+    .nav-item {
+        text-transform: capitalize;
+    }
+    .navbar {
+        padding: 10px;
+        font-size: 16px;
+    }
+    .bg-dark{
+        background-color: #2c3e50 !important;
+    }
+</style>
