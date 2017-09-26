@@ -11,7 +11,7 @@ import vueSeo from '@deveodk/vue-seo'
 const API_URL = process.env.API_URL
 
 Vue.use(VueAxios, axios)
-axios.defaults.baseURL = API_URL + '/v1/'
+axios.defaults.baseURL = API_URL
 
 if (process.env.NODE_ENV !== 'development') {
 Raven
@@ -22,9 +22,6 @@ Vue.prototype.$raven = Raven
 }
 
 Vue.use(vueSeo)
-
-Vue.use(VueAxios, axios)
-axios.defaults.baseURL = ''
 
 Vue.use(VueToastr, {
     defaultPosition: 'toast-bottom-right',
