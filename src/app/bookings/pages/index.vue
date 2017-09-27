@@ -1,6 +1,7 @@
 <template>
     <div class="top-section">
         <div class="container">
+            <h4 class="text-center text-uppercase">Pirates of the caribien</h4>
             <div class="row">
                 <div class="col-md-6">
                     <div class="card">

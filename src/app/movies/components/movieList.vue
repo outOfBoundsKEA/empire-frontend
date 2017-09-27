@@ -15,7 +15,7 @@
                             {{ movie.price }}
                         </span>
                         <p class="card-text">{{ movie.description }}</p>
-                        <button class="btn btn-outline-primary">Book</button>
+                        <router-link :to="{name: 'Booking'}" class="btn btn-outline-primary">Book</router-link>
                         <button class="btn btn-outline-primary">Details</button>
                     </div>
                 </div>
