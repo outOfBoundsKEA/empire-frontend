@@ -8,7 +8,7 @@
                         <img alt="bio poster" style="height: 452px; width: 320px; display: block" :src="movie.imageUrl">
 
                         <p class="card-title">{{ movie.title }}</p>
-                        <span class="badge badge-primary">Age limit {{ movie.ageLimit }}</span>
+                        <span class="badge badge-primary">Age limit {{ movie.ageLimit }}+</span>
                         <br>
                         <span class="badge badge-dark">
                             <i class="fa fa-usd" aria-hidden="true"></i>
