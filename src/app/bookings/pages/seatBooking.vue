@@ -46,7 +46,7 @@
                             <hr>
 
                             <button class="btn btn-success">Buy</button>
-                            <button class="btn btn-danger">Cancel order</button>
+                            <button class="btn btn-danger" @click="cancelOrder()">Cancel order</button>
                         </div>
                     </div>
                 </div>
@@ -85,6 +85,13 @@
             this.getShowing()
         },
         methods: {
+            cancelOrder () {
+                for (let i = 0; i < this.currentOrder.length; i++) {
+                    showingService.websocket(this.showing.id, {seatNumber: this.currentOrder[i]}, () => {
+                    })
+                }
+                this.currentOrder = []
+            },
             addToCurrentOrder (seatNumber) {
                 this.currentOrder.push(seatNumber)
                 showingService.websocket(this.showing.id, {seatNumber: seatNumber}, (response) => {
