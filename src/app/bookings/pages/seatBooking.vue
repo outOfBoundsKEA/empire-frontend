@@ -2,25 +2,6 @@
     <div class="top-section" v-if="showing">
         <div class="container-fluid">
             <div class="row">
-                <div class="col-md-6">
-                    <div class="card">
-                        <div class="card-body">
-                            <h4 class="card-title">Seats available </h4>
-                            <p class="card-text"><span class="badge badge-success">{{ showing.showroom.width * showing.showroom.height - reservedSeats.length}}</span></p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <div class="card">
-                        <div class="card-body">
-                            <h4 class="card-title">Seats taken </h4>
-                            <p class="card-text"><span class="badge badge-danger">{{ reservedSeats.length }}</span></p>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-            <div class="row">
                 <div class="col-md-8">
                     <showroom-view v-if="cinemaView"
                                    :width="showing.showroom.width"

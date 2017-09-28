@@ -2,7 +2,7 @@
     <div>
         <div class="cinema">
             <div style="text-align: center">
-                <p class="cinema-name">{{ name }}</p>
+                <p class="cinema-name">{{ name }} : {{ seatNumbers}} seats</p>
                 <div class="scene"></div>
             </div>
             <div class="showroom-container" v-bind:style="{width: width * 32 + 'px'}">
