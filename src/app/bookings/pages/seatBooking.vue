@@ -94,7 +94,7 @@
                 this.currentOrder = []
             },
             otherReserved (seatNumber) {
-                if (!this.isReserved(seatNumber)) {
+                if (this.isReserved(seatNumber)) {
                     this.reservedSeats.push(seatNumber)
                     return
                 }
