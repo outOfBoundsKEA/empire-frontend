@@ -94,7 +94,7 @@
                 this.currentOrder = []
             },
             otherReserved (seatNumber) {
-                if (this.isReserved(seatNumber)) {
+                if (!this.isReserved(seatNumber)) {
                     this.reservedSeats.push(seatNumber)
                     return
                 }
@@ -113,6 +113,8 @@
             removeFromCurrentOrder (seatNumber) {
                 const index = this.currentOrder.indexOf(seatNumber)
                 this.currentOrder.splice(index, 1)
+                showingService.websocket(this.showing.id, {seatNumber: seatNumber}, (response) => {
+                })
             },
             getShowing () {
                 showingService.find(this.$route.params.id, {}, (response) => {
