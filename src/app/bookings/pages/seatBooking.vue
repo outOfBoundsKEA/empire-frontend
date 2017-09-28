@@ -10,6 +10,7 @@
                                    :reservedSeats="reservedSeats"
                                    :currentOrder="currentOrder"
                                    :id="showing.id"
+                                   @seatReserved="otherReserved($event)"
                                    @addSeatReservation="addToCurrentOrder($event)"
                                    @removeSeatReservation="removeFromCurrentOrder($event)"></showroom-view>
                 </div>
@@ -91,6 +92,17 @@
                     })
                 }
                 this.currentOrder = []
+            },
+            otherReserved (seatNumber) {
+                if (!this.isReserved(seatNumber)) {
+                    this.reservedSeats.push(seatNumber)
+                    return
+                }
+                const index = this.reservedSeats.indexOf(seatNumber)
+                this.reservedSeats.splice(index, 1)
+            },
+            isReserved (i) {
+                return this.reservedSeats.indexOf(i) !== -1
             },
             addToCurrentOrder (seatNumber) {
                 this.currentOrder.push(seatNumber)

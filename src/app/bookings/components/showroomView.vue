@@ -115,14 +115,7 @@
                     const json = JSON.parse(data)
                     const seatNumber = json.seatNumber
 
-                    if (!this.isReserved(seatNumber)) {
-                        if (!this.isReserved(seatNumber)) {
-                            this.reservedSeats.push(seatNumber)
-                        }
-
-                        const index = this.reservedSeats.indexOf(seatNumber)
-                        this.reservedSeats.splice(index, 1)
-                    }
+                    this.$emit('seatReserved', seatNumber)
                 })
             },
             reserveSeat (j) {
