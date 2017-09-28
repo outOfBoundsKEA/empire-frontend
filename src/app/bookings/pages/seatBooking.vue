@@ -27,6 +27,7 @@
                                    :height="showing.showroom.height"
                                    :name="showing.showroom.name"
                                    :reservedSeats="reservedSeats"
+                                   :currentOrder="currentOrder"
                                    :id="showing.id"
                                    @addSeatReservation="addToCurrentOrder($event)"
                                    @removeSeatReservation="removeFromCurrentOrder($event)"></showroom-view>

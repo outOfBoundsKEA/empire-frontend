@@ -11,7 +11,7 @@
                     </div>
 
                     <div class="showroom-seat"
-                         :class="{ 'seat-available': !isReserved(seat), 'seat-taken' : isReserved(seat) }"
+                         :class="{ 'seat-available': !isReserved(seat), 'seat-taken' : isReserved(seat), 'seat-selected' : inOrder(seat)}"
                          @click="reserveSeat(seat)">
                         <p class="text-center">{{ seat }}</p>
                     </div>
@@ -30,6 +30,9 @@
     }
     .seat-available:hover {
         background-image: url(/static/assets/seat.svg);
+    }
+    .seat-selected {
+        background-image: url(/static/assets/seat-selected.svg) !important;
     }
     .seat-taken {
         background-image: url(/static/assets/seat-taken.svg);
@@ -77,9 +80,15 @@
         name: 'showroomView',
         props: {
             reservedSeats: {
-                type: Array
+                type: Array,
+                default: []
+            },
+            currentOrder: {
+                type: Array,
+                default: []
             },
             id: {
+                type: Number
             },
             width: {
                 type: Number
@@ -107,24 +116,29 @@
                     const seatNumber = json.seatNumber
 
                     if (!this.isReserved(seatNumber)) {
-                        this.reservedSeats.push(seatNumber)
+                        if (!this.isReserved(seatNumber)) {
+                            this.reservedSeats.push(seatNumber)
+                        }
+
+                        const index = this.reservedSeats.indexOf(seatNumber)
+                        this.reservedSeats.splice(index, 1)
                     }
                 })
             },
             reserveSeat (j) {
-                if (!this.isReserved(j)) {
-                    this.reservedSeats.push(j)
+                if (!this.inOrder(j)) {
                     this.$emit('seatReserved', this.reservedSeats)
                     this.$emit('addSeatReservation', j)
                     return
                 }
                 // Remove if clicked double
                 this.$emit('removeSeatReservation', j)
-                const index = this.reservedSeats.indexOf(j)
-                this.reservedSeats.splice(index, 1)
             },
             isReserved (i) {
                 return this.reservedSeats.indexOf(i) !== -1
+            },
+            inOrder (i) {
+                return this.currentOrder.indexOf(i) !== -1
             }
         },
         computed: {
