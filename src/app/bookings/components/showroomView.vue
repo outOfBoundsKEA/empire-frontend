@@ -80,12 +80,10 @@
         name: 'showroomView',
         props: {
             reservedSeats: {
-                type: Array,
-                default: []
+                type: Array
             },
             currentOrder: {
-                type: Array,
-                default: []
+                type: Array
             },
             id: {
                 type: Number
@@ -120,7 +118,6 @@
             },
             reserveSeat (j) {
                 if (!this.inOrder(j)) {
-                    this.$emit('seatReserved', this.reservedSeats)
                     this.$emit('addSeatReservation', j)
                     return
                 }

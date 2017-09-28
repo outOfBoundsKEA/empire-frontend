@@ -105,6 +105,7 @@
                 return this.reservedSeats.indexOf(i) !== -1
             },
             addToCurrentOrder (seatNumber) {
+                console.log(seatNumber)
                 this.currentOrder.push(seatNumber)
                 showingService.websocket(this.showing.id, {seatNumber: seatNumber}, (response) => {
                 })
