@@ -51,7 +51,7 @@ const post = (path, data, cb, errorCb) => {
  * @param errorCb
  */
 const put = (path, data, cb, errorCb) => {
-    Vue.axios.post(path, data)
+    Vue.axios.put(path, data)
         .then((response) => {
             cb(response)
         }).catch(error => {

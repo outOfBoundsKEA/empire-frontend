@@ -5,7 +5,7 @@
                 <p class="cinema-name">{{ name }}</p>
                 <div class="scene"></div>
             </div>
-            <div class="showroom-container" v-bind:style="{width: width * 45 + 'px'}">
+            <div class="showroom-container" v-bind:style="{width: width * 32 + 'px'}">
                 <div v-for="(seat, index) in seatNumbers">
                     <div class="seat-seperator" v-if="(index % width) === 0">
                     </div>
@@ -22,7 +22,7 @@
 </template>
 <style lang="scss" scoped>
     .seat-seperator {
-        padding: 30px 0;
+        padding: 25px 0;
         display: block;
     }
     .seat-available {
@@ -54,10 +54,10 @@
         margin: 20px;
     }
     .showroom-seat {
-        width: 40px;
-        height: 40px;
-        margin-right: 5px;
-        background-size: 38px 38px;
+        width: 30px;
+        height: 30px;
+        margin-right: 2px;
+        background-size: 28px 28px;
         background-repeat: no-repeat;
         float: left;
         -moz-user-select: -moz-none;
@@ -71,14 +71,16 @@
     }
 </style>
 <script>
+    import Pusher from 'pusher-js'
+
     export default {
         name: 'showroomView',
-        data () {
-            return {
-                reservedSeats: []
-            }
-        },
         props: {
+            reservedSeats: {
+                type: Array
+            },
+            id: {
+            },
             width: {
                 type: Number
             },
@@ -90,14 +92,34 @@
                 default: 'Room one'
             }
         },
+        created () {
+            this.listenForWebsocket()
+        },
         methods: {
+            listenForWebsocket () {
+                const pusher = new Pusher('bff122a064b3e4fa9ae3', {
+                    cluster: 'eu',
+                    encrypted: true
+                })
+                const channel = pusher.subscribe('showing_reservations')
+                channel.bind(this.id, (data) => {
+                    const json = JSON.parse(data)
+                    const seatNumber = json.seatNumber
+
+                    if (!this.isReserved(seatNumber)) {
+                        this.reservedSeats.push(seatNumber)
+                    }
+                })
+            },
             reserveSeat (j) {
                 if (!this.isReserved(j)) {
                     this.reservedSeats.push(j)
                     this.$emit('seatReserved', this.reservedSeats)
+                    this.$emit('addSeatReservation', j)
                     return
                 }
                 // Remove if clicked double
+                this.$emit('removeSeatReservation', j)
                 const index = this.reservedSeats.indexOf(j)
                 this.reservedSeats.splice(index, 1)
             },

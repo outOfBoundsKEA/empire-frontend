@@ -12,6 +12,7 @@ const API_URL = process.env.API_URL
 
 Vue.use(VueAxios, axios)
 axios.defaults.baseURL = API_URL
+axios.defaults.headers.put['Content-Type'] = 'application/x-www-form-urlencoded'
 
 if (process.env.NODE_ENV !== 'development') {
 Raven
