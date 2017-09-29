@@ -4,20 +4,7 @@
 
             <div class="row">
                 <div class="card" v-for="movie in movies">
-                    <div class="card-body">
-                        <img alt="bio poster" style="height: 452px; width: 320px; display: block" :src="movie.imageUrl">
-
-                        <p class="card-title">{{ movie.title }}</p>
-                        <span class="badge badge-primary">Age limit {{ movie.ageLimit }}+</span>
-                        <br>
-                        <span class="badge badge-dark">
-                            <i class="fa fa-usd" aria-hidden="true"></i>
-                            {{ movie.price }}
-                        </span>
-                        <p class="card-text">{{ movie.description }}</p>
-                        <router-link :to="{name: 'Booking'}" class="btn btn-outline-primary">Book</router-link>
-                        <button class="btn btn-outline-primary">Details</button>
-                    </div>
+                    <movie :movie="movie"></movie>
                 </div>
             </div>
 
@@ -37,6 +24,8 @@
 </style>
 <script>
     import * as movieService from '@/infrastructure/services/MovieService'
+    import movie from './movie'
+
     export default {
         name: 'MovieList',
         data () {
@@ -55,6 +44,9 @@
                     console.log(error)
                 })
             }
+        },
+        components: {
+            movie
         }
     }
 </script>

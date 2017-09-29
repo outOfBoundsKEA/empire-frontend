@@ -46,8 +46,22 @@
 
                             <hr>
 
-                            <button class="btn btn-success">Buy</button>
-                            <button class="btn btn-danger" @click="cancelOrder()">Cancel order</button>
+                            <div class="collapse" style="display: block;">
+                                <div class="card card-body">
+                                    <div class="form-group">
+                                        <label for="exampleInputEmail1">Customers phone number</label>
+                                        <input v-model="form.phone" type="number" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter phone number">
+                                        <small id="emailHelp" class="form-text text-muted">This will be stored in our registration db</small>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="exampleInputName">Customers name</label>
+                                        <input v-model="form.name" type="text" class="form-control" id="exampleInputName" aria-describedby="emailHelp" placeholder="Enter customer name">
+                                        <small id="Name" class="form-text text-muted">This will be stored in our registration db</small>
+                                    </div>
+                                </div>
+                                <button class="btn btn-success" @click="submitBuy()">Buy tickets</button>
+                                <button class="btn btn-danger" @click="cancelOrder()">Cancel order</button>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -71,6 +85,7 @@
 <script>
     import showroomView from '../components/showroomView.vue'
     import * as showingService from '@/infrastructure/services/ShowingService'
+    import * as reservationService from '@/infrastructure/services/ReservationService'
 
     export default {
         name: 'BookingView',
@@ -78,20 +93,47 @@
             return {
                 showing: false,
                 cinemaView: false,
+                form: {
+                    phone: '',
+                    name: '',
+                    showingId: this.$route.params.id,
+                    seats: []
+                },
                 reservedSeats: [],
                 currentOrder: []
             }
         },
         created () {
             this.getShowing()
+            this.getReservations()
         },
         methods: {
+            submitBuy () {
+                let body = {
+                    phone: this.form.phone,
+                    name: this.form.name,
+                    showingId: parseInt(this.form.showingId),
+                    seat: this.currentOrder
+                }
+                    reservationService.create(body, () => {
+                        this.$toastr('success', 'Tickets bought', 'You may procced mr. shop assistent')
+                        this.$router.push({name: 'Movies'})
+                    })
+            },
             cancelOrder () {
                 for (let i = 0; i < this.currentOrder.length; i++) {
                     showingService.websocket(this.showing.id, {seatNumber: this.currentOrder[i]}, () => {
                     })
                 }
                 this.currentOrder = []
+            },
+            getReservations () {
+                reservationService.showingReservations(this.$route.params.id, {}, (response) => {
+                    const reservations = response.data
+                    for (let i = 0; i < reservations.length; i++) {
+                        this.reservedSeats.push(reservations[i].seat)
+                    }
+                })
             },
             otherReserved (seatNumber) {
                 if (!this.isReserved(seatNumber)) {
@@ -105,7 +147,6 @@
                 return this.reservedSeats.indexOf(i) !== -1
             },
             addToCurrentOrder (seatNumber) {
-                console.log(seatNumber)
                 this.currentOrder.push(seatNumber)
                 showingService.websocket(this.showing.id, {seatNumber: seatNumber}, (response) => {
                 })

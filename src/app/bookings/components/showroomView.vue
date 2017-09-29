@@ -112,7 +112,6 @@
                 channel.bind(this.id, (data) => {
                     const json = JSON.parse(data)
                     const seatNumber = json.seatNumber
-                    console.log(seatNumber)
 
                     this.$emit('seatReserved', seatNumber)
                 })
