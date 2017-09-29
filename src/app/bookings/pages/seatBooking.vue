@@ -53,11 +53,6 @@
                                         <input v-model="form.phone" type="number" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter phone number">
                                         <small id="emailHelp" class="form-text text-muted">This will be stored in our registration db</small>
                                     </div>
-                                    <div class="form-group">
-                                        <label for="exampleInputName">Customers name</label>
-                                        <input v-model="form.name" type="text" class="form-control" id="exampleInputName" aria-describedby="emailHelp" placeholder="Enter customer name">
-                                        <small id="Name" class="form-text text-muted">This will be stored in our registration db</small>
-                                    </div>
                                 </div>
                                 <button class="btn btn-success" @click="submitBuy()">Buy tickets</button>
                                 <button class="btn btn-danger" @click="cancelOrder()">Cancel order</button>

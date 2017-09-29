@@ -3,7 +3,7 @@
         <div class="container">
             <div class="showing-container">
                 <div class="row">
-                        <div class="card col-md-3" v-for="showing in contents">
+                        <div class="card col-md-3 animated fadeIn" v-for="showing in contents">
                             <div class="card-title">
                                 <p>
                                     <b>{{ showing.showroom.name }}</b> - {{ showing.datetime | moment("Do MMMM HH:mm") }}

@@ -4,7 +4,7 @@
 
             <div class="row">
                 <div class="card" v-for="movie in movies">
-                    <movie :movie="movie"></movie>
+                    <movie :movie="movie" class="animated fadeInLeft"></movie>
                 </div>
             </div>
 
